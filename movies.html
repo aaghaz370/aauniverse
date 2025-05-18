@@ -686,5 +686,49 @@
   <footer>
     &copy; 2025 AA Universe — All rights reserved.
   </footer>
+  import fs from 'node:fs';
+import express from 'express';
+import { Telegraf } from 'telegraf';
+import 'dotenv/config';
+
+const bot = new Telegraf(process.env.BOT_TOKEN);
+const DB = 'videos.json';
+
+// helper – read & write JSON
+const load = () => JSON.parse(fs.readFileSync(DB, 'utf8'));
+const save = (d) => fs.writeFileSync(DB, JSON.stringify(d, null, 2));
+
+// जब भी वीडियो आये
+bot.on('video', async (ctx) => {
+  const vid = ctx.message.video;
+
+  // 1️⃣ CDN लिंक लो
+  const file = await ctx.telegram.getFile(vid.file_id);
+  const link = `https://api.telegram.org/file/bot${process.env.BOT_TOKEN}/${file.file_path}`;
+
+  // 2️⃣ मेटा-डेटा
+  const title = vid.file_name || `Video_${Date.now()}`;
+  // caption में लिखें:  cat: coding
+  let category = 'general';
+  if (ctx.message.caption?.startsWith('cat:'))
+    category = ctx.message.caption.slice(4).trim();
+
+  // 3️⃣ DB में जोड़ दो
+  const db = load();
+  db.push({ title, category, link });
+  save(db);
+
+  ctx.reply(`✅ Added • ${title} (${category})`);
+});
+
+// ------------ छोटी Web API आपकी साइट को JSON देगी ------------
+const app = express();
+app.get('/videos', (_, res) => res.json(load()));
+app.listen(process.env.PORT, () =>
+  console.log('Web API running on', process.env.PORT),
+);
+
+bot.launch();
+
 </body>
 </html>
