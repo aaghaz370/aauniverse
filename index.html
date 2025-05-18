@@ -105,13 +105,38 @@
       font-size: 14px;
       border-top: 1px solid  #ebe3ff;
     }
+
+    header{
+  padding:20px;
+  text-align:center;
+  background:#ebe3ff;
+  display:flex;            /* ⬅️ flex so logo + title inline */
+  align-items:center;
+  justify-content:center;  /* centered as earlier */
+  gap:10px;                /* space between logo & text */
+}
+
+/* new: logo style */
+.logo{
+  height:2.2rem;      /* same height as the <h1> text */
+  width:2.2rem;
+  border-radius:50%;  /* perfect circle */
+  object-fit:cover;
+}
+
   </style>
 </head>
 <body>
 
-  <header>
+  <!-- <header>
     <h1>AA UNIVERSE</h1>
-  </header>
+  </header> -->
+  <header>
+  <img src="images1/applogo.jpg" alt="AA Logo" class="logo" />
+  <h1>AA UNIVERSE</h1>
+</header>
+
+
 
   <div class="grid-container">
 
