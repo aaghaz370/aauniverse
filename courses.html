@@ -1,158 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Course Filter with Search & Hidden Name</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    body {
-      background-color: #ebe3ff;
-      padding: 10px;
-    }
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background:#ebe3ff;
-      padding: 10px 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .top-bar input[type="text"],
-    .top-bar select {
-      padding: 8px 12px;
-      border: 1px solid #0a0a0a;
-      border-radius: 8px;
-      font-size: 14px;
-      margin: 5px;
-      background:  #ebe3ff;
-      color:  #0a0a0a;
-    }
-    
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Courses • AA Universe</title>
 
-    .course-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      min-height: 200px;
-    }
-    .course-card {
-      background: #fff;
-      border: 2px solid #0a0a0a;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
-      transition: transform 0.2s ease;
-      position: relative;
-      cursor: pointer;
-      height: 220px;
-    }
-    .course-card:hover {
-      transform: translateY(-5px);
-    }
-    .course-image {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      display: block;
-    }
-    .hover-box {
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: rgba(0,0,0,0.6);
-      width: 100%;
-      height: 100%;
-      color: #00a8ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: 0.3s ease;
-      font-weight: 600;
-      font-size: 18px;
-    }
-    .course-card:hover .hover-box {
-      opacity: 1;
-    }
-    .no-courses {
-      color: #00a8ff;
-      font-size: 18px;
-      text-align: center;
-      grid-column: 1/-1;
-      padding: 40px 0;
-      font-weight: 600;
-    }
+<!---- fonts (optional) –-->
+<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet"/>
 
-    .small-cards {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
-    .small-cards .course-card {
-      height: 140px;
-      border-radius: 8px;
-      border-width: 1.5px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.15s ease;
-    }
-    .small-cards .course-image {
-      height: 140px;
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#ebe3ff;padding:10px;min-height:100vh;display:flex;flex-direction:column}
 
-    @media (max-width: 600px) {
-      .top-bar {
-        flex-direction: column;
-        align-items: stretch;
-      }
-    }
-
-     footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #ebe3ff;
-      color: #1a1a1a;
-      font-size: 14px;
-     
-    }
-
-    /* ⬇︎ arrow style */
+/* ───── top-bar ───── */
+.top-bar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  background:#ebe3ff;padding:10px 15px;border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);margin-bottom:20px}
+#search,#cat{
+  padding:8px 12px;border:1px solid #0a0a0a;border-radius:8px;
+  font-size:14px;background:#ebe3ff;color:#0a0a0a}
 #backBtn{
   border:none;background:transparent;color:#0a0a0a;
-  font-size:1.6rem;cursor:pointer;margin-right:6px;
+  font-size:1.6rem;cursor:pointer;line-height:1}
+#backBtn[hidden]{display:none}
+
+/* ───── grid / cards ───── */
+.course-container{
+  display:grid;
+  gap:20px;
+  /* ⬇︎ यह थी:  repeat(auto-fit, minmax(280px,1fr))  */
+  grid-template-columns:repeat(auto-fill,minmax(280px,280px));
+  justify-content:center;   /* new – अकेले कार्ड को बीच में रखता है */
 }
 
-/* ⬇︎ हर कार्ड स्थायी ऊँचाई + info-bar */
-.course-card{height:220px;}          /* one fixed size */
-.course-image{height:170px;}         /* image part */
+.course-card{
+  background:#fff;border:2px solid #0a0a0a;border-radius:12px;
+  overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.07);
+  transition:transform .2s;cursor:pointer;height:220px;display:flex;flex-direction:column}
+.course-card:hover{transform:translateY(-5px)}
+.course-image{width:100%;height:170px;object-fit:cover}
 .info-bar{
-  height:50px;background:#ebe3ff;color:#0a0a0a;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:4px 6px;font-size:.8rem;font-weight:600;
-  line-height:1.1;text-align:center;
-  border-top:1px solid #0a0a0a;
-}
+  flex:1;background:#ebe3ff;color:#0a0a0a;border-top:1px solid #0a0a0a;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:4px 6px;font-weight:600;line-height:1.2;text-align:center;font-size:.8rem}
+.info-bar span{font-size:.7rem;opacity:.7;margin-top:2px}
 
-  </style>
+.no-courses{
+  color:#00a8ff;font-size:18px;text-align:center;font-weight:600;
+  grid-column:1/-1;padding:40px 0}
+
+/* ───── footer ───── */
+footer{text-align:center;padding:15px;background:#ebe3ff;color:#1a1a1a;font-size:14px}
+
+@media(max-width:600px){
+  .top-bar{flex-direction:column;align-items:stretch}
+}
+</style>
 </head>
 <body>
 
-  <!-- <div class="top-bar">
-    <input type="text" placeholder="Search Courses..." />
-    <select>
-      <option value="All">Choose Course & language</option>
-      <option value="coding">coding</option>
-      <option value="editing">editing</option>
-      <option value="exercise">exercise</option>
-    </select>
-  </div> -->
-  <!-- ⬇︎ बदला हुआ HEADER (arrow + search + select) -->
+<!---- top controls -->
 <div class="top-bar">
   <button id="backBtn" hidden>&larr;</button>
   <input type="text" id="search" placeholder="Search Courses..." />
@@ -164,98 +72,73 @@
   </select>
 </div>
 
+<!---- grid container -->
+<div class="course-container" id="courses"></div>
 
-  <div class="course-container" id="courses"></div>
+<footer>&copy; 2025 AA Universe — All rights reserved.</footer>
 
-  <script>
-    const courseList = [
-      {
-        name: "Delta 6.0 Web Dev",
-        image: "courseimg/delta6.0.jpg",
-        page: "course-lecture/delta6.0.html",
-        category: "coding"
-      },
-      {
-        name: "NEET Biology Full",
-        image: "courseimg/zerotoherodavinci.jpg",
-        page: "course-lecture/davinci.html",
-        category: "editing"
-      },
-      {
-        name: "Class 9 CBSE Basics",
-        image: "courseimg/bodybuildingbyjeetselal.jpg",
-        page: "course-lecture/jeetselal.html",
-        category: "exercise"
-      },
-      {
-        name: "Class 10 Full Course",
-        image: "courseimg/pythonbyapnacollege.jpg",
-        page: "course-lecture/python.html",
-        category: "coding"
-      },
-      {
-        name: "NEET Chemistry",
-        image: "courseimg/sigma5.0.jpg",
-        page: "course-lecture/sigma5.0.html",
-        category: "coding"
-      }
-    ];
+<script>
+/* ───── course data ───── */
+const courseList=[
+ {name:"Delta 6.0 Web Dev",image:"courseimg/delta6.0.jpg",page:"course-lecture/delta6.0.html",category:"coding"},
+ {name:"NEET Biology Full",image:"courseimg/zerotoherodavinci.jpg",page:"course-lecture/davinci.html",category:"editing"},
+ {name:"Class 9 CBSE Basics",image:"courseimg/bodybuildingbyjeetselal.jpg",page:"course-lecture/jeetselal.html",category:"exercise"},
+ {name:"Class 10 Full Course",image:"courseimg/pythonbyapnacollege.jpg",page:"course-lecture/python.html",category:"coding"},
+ {name:"NEET Chemistry",image:"courseimg/sigma5.0.jpg",page:"course-lecture/sigma5.0.html",category:"coding"}
+];
 
-    const container = document.getElementById("courses");
-    const searchInput = document.querySelector('.top-bar input[type="text"]');
-    const categorySelect = document.querySelector('.top-bar select');
+/* ───── DOM refs ───── */
+const container=document.getElementById("courses");
+const searchInput=document.getElementById("search");
+const categorySelect=document.getElementById("cat");
+const backBtn=document.getElementById("backBtn");
 
-    function renderCourses(courses, small = false) {
-      container.innerHTML = "";
-      if (courses.length === 0) {
-        container.innerHTML = '<div class="no-courses">No course found</div>';
-        container.classList.remove('small-cards');
-        return;
-      }
-    // /* ⬇︎ JS में सिर्फ़ renderCourses और events बदले */
+/* ───── render ───── */
+function renderCourses(list){
+  container.innerHTML="";
+  if(list.length===0){
+    container.innerHTML='<div class="no-courses">No course found</div>';
+    backBtn.hidden=false;
+    return;
+  }
+  list.forEach(c=>{
+    const card=document.createElement("div");
+    card.className="course-card";
+    card.onclick=()=>window.location.href=c.page;
+    card.innerHTML=`
+       <img src="${c.image}" alt="" class="course-image">
+       <div class="info-bar">
+         ${c.name}<span>${c.category}</span>
+       </div>`;
+    container.appendChild(card);
+  });
+}
 
+/* ───── filter logic ───── */
+function filterCourses(){
+  const kw=searchInput.value.toLowerCase();
+  const cat=categorySelect.value;
+  const out=courseList.filter(c=>{
+    const okCat=(cat==="All"||c.category===cat);
+    const okKw=c.name.toLowerCase().includes(kw);
+    return okCat&&okKw;
+  });
+  renderCourses(out);
+  backBtn.hidden=(kw==="" && cat==="All");   // hide arrow if no filter
+}
 
+/* ───── events ───── */
+searchInput.oninput=filterCourses;
+categorySelect.onchange=filterCourses;
+backBtn.onclick=()=>{
+  searchInput.value="";
+  categorySelect.value="All";
+  renderCourses(courseList);
+  backBtn.hidden=true;
+};
 
-      container.classList.toggle('small-cards', small);
-
-      courses.forEach(course => {
-        const card = document.createElement("div");
-        card.className = "course-card";
-
-        card.onclick = () => {
-          window.location.href = course.page;
-        };
-
-        card.innerHTML = `
-          <div class="hover-box">View Details</div>
-          <img src="${course.image}" alt="Course Image" class="course-image" />
-          <div style="display:none">${course.name}</div> <!-- hidden name -->
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    function filterCourses() {
-      const keyword = searchInput.value.toLowerCase();
-      const category = categorySelect.value;
-
-      const filtered = courseList.filter(course => {
-        const matchesCategory = (category === "All" || course.category === category);
-        const matchesSearch = course.name.toLowerCase().includes(keyword);
-        return keyword ? (matchesCategory && matchesSearch) : matchesCategory;
-      });
-
-      renderCourses(filtered, keyword.trim() !== "");
-    }
-
-    searchInput.addEventListener("input", filterCourses);
-    categorySelect.addEventListener("change", filterCourses);
-
-    renderCourses(courseList);
-  </script>
-  <footer>
-    &copy; 2025 AA Universe — All rights reserved.
-  </footer>
-
+/* ───── first draw ───── */
+renderCourses(courseList);
+</script>
 </body>
 </html>
