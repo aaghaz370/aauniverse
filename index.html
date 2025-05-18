@@ -186,5 +186,55 @@
     &copy; 2025 AA Universe — All rights reserved.
   </footer>
 
+  <!-- put this just before </body> -->
+<script>
+(function(){
+
+/* =========== overlay UI =========== */
+const overlay=document.createElement('div');
+overlay.style.cssText=`
+  position:fixed;inset:0;backdrop-filter:blur(6px);
+  background:rgba(0,0,0,.6);color:#fff;font-size:1.5rem;
+  display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;pointer-events:none;
+  transition:.3s`;
+overlay.innerHTML="<div>DevTools detected – page locked 🔒</div>";
+document.body.appendChild(overlay);
+
+/* =========== DevTools detection =========== */
+let devOpen=false;
+function detect(){
+  const threshold=160;                // devtools width / height guess
+  const w=window.outerWidth - window.innerWidth > threshold;
+  const h=window.outerHeight - window.innerHeight > threshold;
+  if(w||h){
+    if(!devOpen){lock();devOpen=true;}
+  }else if(devOpen){unlock();devOpen=false;}
+}
+function lock(){
+  overlay.style.opacity="1";
+  overlay.style.pointerEvents="auto";
+  document.body.style.filter="blur(6px)";
+}
+function unlock(){
+  overlay.style.opacity="0";
+  overlay.style.pointerEvents="none";
+  document.body.style.filter="none";
+}
+detect();
+window.addEventListener('resize',detect);
+
+/* =========== context-menu & shortcuts =========== */
+document.addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('keydown',e=>{
+  if(
+    e.key==="F12" ||
+    (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) || /* devtools keys */
+    (e.ctrlKey && ["U","S"].includes(e.key))                    /* view-source / save */
+  ){ e.preventDefault(); }
+});
+
+})();
+</script>
+
 </body>
 </html>
