@@ -36,6 +36,7 @@
       background:  #ebe3ff;
       color:  #0a0a0a;
     }
+    
 
     .course-container {
       display: grid;
@@ -120,11 +121,29 @@
       font-size: 14px;
      
     }
+
+    /* ⬇︎ arrow style */
+#backBtn{
+  border:none;background:transparent;color:#0a0a0a;
+  font-size:1.6rem;cursor:pointer;margin-right:6px;
+}
+
+/* ⬇︎ हर कार्ड स्थायी ऊँचाई + info-bar */
+.course-card{height:220px;}          /* one fixed size */
+.course-image{height:170px;}         /* image part */
+.info-bar{
+  height:50px;background:#ebe3ff;color:#0a0a0a;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4px 6px;font-size:.8rem;font-weight:600;
+  line-height:1.1;text-align:center;
+  border-top:1px solid #0a0a0a;
+}
+
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
+  <!-- <div class="top-bar">
     <input type="text" placeholder="Search Courses..." />
     <select>
       <option value="All">Choose Course & language</option>
@@ -132,7 +151,19 @@
       <option value="editing">editing</option>
       <option value="exercise">exercise</option>
     </select>
-  </div>
+  </div> -->
+  <!-- ⬇︎ बदला हुआ HEADER (arrow + search + select) -->
+<div class="top-bar">
+  <button id="backBtn" hidden>&larr;</button>
+  <input type="text" id="search" placeholder="Search Courses..." />
+  <select id="cat">
+    <option value="All">Choose Course & language</option>
+    <option value="coding">coding</option>
+    <option value="editing">editing</option>
+    <option value="exercise">exercise</option>
+  </select>
+</div>
+
 
   <div class="course-container" id="courses"></div>
 
@@ -181,6 +212,9 @@
         container.classList.remove('small-cards');
         return;
       }
+    // /* ⬇︎ JS में सिर्फ़ renderCourses और events बदले */
+
+
 
       container.classList.toggle('small-cards', small);
 
