@@ -1,71 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Study Platforms</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sleep & Relax Sounds</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#ebe3ff;display:flex;flex-direction:column;min-height:100vh}
-
-/* ─── header ─── */
-header{
-  background:#ebe3ff;padding:20px;
-  display:flex;align-items:center;justify-content:space-between;
+:root{
+  --brand:#7a5cff;--brand2:#5637ff;--bg:#eae6ff;--card:#fff;
+  --text:#fff;--radius:22px;--shadow:0 6px 14px rgba(0,0,0,.15);
+  font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
 }
-h1{font-size:2.2rem;color:#121212;letter-spacing:1px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
+header{background:linear-gradient(90deg,var(--brand) 0%,var(--brand2) 100%);
+  color:#fff;padding:12px 16px;display:flex;gap:12px;align-items:center;
+  flex-wrap:wrap;position:sticky;top:0;z-index:5}
+h1{font-size:1.25rem;font-weight:600;margin-right:auto}
+select{border:none;border-radius:50px;padding:8px 14px;font-size:.9rem;cursor:pointer}
 
-/* new study-material button */
-.sm-btn{
-  padding:8px 14px;border:2px solid #121212;border-radius:8px;
-  background:#121212;color:#ebe3ff;font-size:.95rem;font-weight:600;
-  cursor:pointer;text-decoration:none;white-space:nowrap
-}
-.sm-btn:hover{background:#000}
+main{padding:24px 20px 80px;flex:1}
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.card{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;
+  box-shadow:var(--shadow);transition:transform .25s}
+.card:hover{transform:translateY(-6px)}
+.card img{width:100%;height:220px;object-fit:cover;display:block}
+.card h3{position:absolute;left:0;right:0;bottom:10px;padding:0 12px;font-size:1rem;
+  font-weight:700;color:var(--text);text-align:center;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 
-/* ─── grid ─── */
-.grid-container{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:20px;padding:30px 40px;flex:1
-}
-.box{
-  background:#121212;border:2px solid #121212;border-radius:12px;
-  overflow:hidden;height:410px;cursor:pointer;display:flex;flex-direction:column
-}
-.box img{width:100%;height:420px;object-fit:cover;transition:.3s}
-.box:hover img{filter:brightness(1.15)}
+/* ── modal ── */
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);
+  justify-content:center;align-items:center;z-index:50}
+#overlay.active{display:flex;animation:fade .3s}
+.modal{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  max-width:420px;width:90vw;padding:20px;display:flex;flex-direction:column;
+  align-items:center;gap:14px;position:relative}
+.modal img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--radius)}
+.modal h2{font-size:1.1rem;text-align:center}
+.modal p{font-size:.9rem;color:#444;text-align:center;line-height:1.4}
+.close{position:absolute;top:10px;right:12px;font-size:1.6rem;border:none;
+  background:none;cursor:pointer;color:#666}
 
-/* ─── responsive ─── */
-@media(max-width:1024px){.grid-container{grid-template-columns:repeat(2,1fr);padding:20px}}
+input[type=range]{width:100%;cursor:pointer}
+.controls{display:flex;gap:14px;align-items:center;margin-top:6px}
+.controls button{background:var(--brand);border:none;color:#fff;border-radius:50%;
+  width:54px;height:54px;font-size:1.25rem;cursor:pointer}
+
+/* ── mini player ── */
+#mini{position:fixed;left:0;right:0;bottom:0;height:64px;background:var(--card);
+  box-shadow:0 -2px 12px rgba(0,0,0,.12);display:none;align-items:center;gap:14px;
+  padding:0 18px;z-index:40}
+#mini.show{display:flex}
+#mini img{height:48px;width:48px;border-radius:12px;object-fit:cover}
+#mini span{flex:1;font-size:.92rem;font-weight:600;white-space:nowrap;
+  text-overflow:ellipsis;overflow:hidden}
+#mini button{background:var(--brand);border:none;color:#fff;border-radius:50%;
+  width:42px;height:42px;font-size:1.05rem;cursor:pointer}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ── mobile tweaks ── */
 @media(max-width:600px){
-  .grid-container{grid-template-columns:1fr;padding:10px}
-  h1{font-size:1.8rem}
+  h1{font-size:1.1rem}
+  .grid{grid-template-columns:repeat(2,1fr);}       /* 2-column grid */
+  .card img{height:180px;}                          /* थोड़ी कम height */
 }
-
-/* ─── footer ─── */
-footer{text-align:center;padding:15px;background:#ebe3ff;color:#121212;font-size:14px}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Study Platforms</h1>
-  <a href="studymaterial.html" class="sm-btn">Study Material</a>
+  <h1>Sleep &amp; Relax Sounds</h1>
+  <select id="filter">
+    <option value="all">All</option><option value="smooth">Smooth</option>
+    <option value="lofi">Lofi</option><option value="rain">Rain</option>
+    <option value="nature">Nature</option><option value="loud">Loud</option>
+  </select>
 </header>
 
-<div class="grid-container">
-  <div class="box" onclick="window.location.href='studyapp/pw/pw.html'"><img src="images1/pw.jpg" alt="PW"></div>
-  <div class="box" onclick="window.location.href='studyapp/nexttopper/nexttopper.html'"><img src="images1/nexttopper.jpg" alt="NextTopper"></div>
-  <div class="box" onclick="window.location.href='studyapp/kgs/kgs.html'"><img src="images1/kgs.jpg" alt="KGS"></div>
-  <div class="box" onclick="window.location.href='studyapp/vidyakul/vidyakul.html'"><img src="images1/vidyakul.jpg" alt="Vidyakul"></div>
-  <div class="box" onclick="window.location.href='studyapp/unacademy/unacademy.html'"><img src="images1/unacademy.jpg" alt="Unacademy"></div>
-  <div class="box" onclick="window.location.href='studyapp/motionlearning/motionlearning.html'"><img src="images1/motionlearning.jpg" alt="motionlearning"></div>
-  <div class="box" onclick="window.location.href='studyapp/apnikaksha/apnikaksha.html'"><img src="images1/apni kakcha.jpg" alt="apnikaksha"></div>
-  <div class="box" onclick="window.location.href='studyapp/carrerwill/carrerwill.html'"><img src="images1/careerwill.jpg" alt="careerwill"></div>
+<main><div class="grid" id="grid"></div></main>
+
+<!-- modal -->
+<div id="overlay">
+  <div class="modal">
+    <button class="close">×</button>
+    <img id="mImg"><h2 id="mTitle"></h2><p id="mDesc"></p>
+    <input type="range" id="seek" value="0" min="0" step="1">
+    <div class="controls"><button id="mPlay">►</button></div>
+  </div>
 </div>
 
-<footer>&copy; 2025 AA Universe — Study with the best.</footer>
+<!-- mini-player -->
+<div id="mini">
+  <img id="miniImg"><span id="miniTitle"></span><button id="miniPlay">►</button>
+</div>
 
+<audio id="audio" loop></audio>
+
+<script>
+/* ------------ data ------------ */
+const songs=[ {title:"Ocean Breeze",cat:"smooth",img:"songs-img/1.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",desc:"Gentle waves and soft pads to calm the mind."},
+  {title:"Midnight Lofi",cat:"lofi",img:"songs-img/2.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",desc:"Chillbeat blend for late-night focus."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/3.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/7.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Power Drums",cat:"loud",img:"songs-img/4.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",desc:"Energising drumline for quick motivation."},
+  {title:"Ocean Breeze",cat:"smooth",img:"songs-img/5.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",desc:"Gentle waves and soft pads to calm the mind."},
+  {title:"Midnight Lofi",cat:"lofi",img:"songs-img/3.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",desc:"Chillbeat blend for late-night focus."},
+  {title:"Thunder Rain",cat:"rain",img:"songs-img/8.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",desc:"Distant thunder & steady rain for deep sleep."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/10.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Power Drums",cat:"loud",img:"songs-img/11.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",desc:"Energising drumline for quick motivation."},
+  {title:"Ocean Breeze",cat:"smooth",img:"songs-img/12.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",desc:"Gentle waves and soft pads to calm the mind."},
+  {title:"Midnight Lofi",cat:"lofi",img:"songs-img/13.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",desc:"Chillbeat blend for late-night focus."},
+  {title:"Thunder Rain",cat:"rain",img:"songs-img/9.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",desc:"Distant thunder & steady rain for deep sleep."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/11.jpg",src:"songs-img/24.jpg",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Power Drums",cat:"loud",img:"songs-img/20.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",desc:"Energising drumline for quick motivation."},
+  {title:"Ocean Breeze",cat:"smooth",img:"songs-img/6.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",desc:"Gentle waves and soft pads to calm the mind."},
+  {title:"Midnight Lofi",cat:"lofi",img:"songs-img/15.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",desc:"Chillbeat blend for late-night focus."},
+  {title:"Thunder Rain",cat:"rain",img:"songs-img/14.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",desc:"Distant thunder & steady rain for deep sleep."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/18.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Power Drums",cat:"loud",img:"songs-img/22.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",desc:"Energising drumline for quick motivation."},
+  {title:"Ocean Breeze",cat:"smooth",img:"songs-img/16.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",desc:"Gentle waves and soft pads to calm the mind."},
+  {title:"Midnight Lofi",cat:"lofi",img:"songs-img/23.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",desc:"Chillbeat blend for late-night focus."},
+  {title:"Thunder Rain",cat:"rain",img:"songs-img/17.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",desc:"Distant thunder & steady rain for deep sleep."},
+  {title:"Forest Birds",cat:"nature",img:"songs-img/21.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",desc:"Morning birdsong recorded in a quiet forest."},
+  {title:"Power Drums",cat:"loud",img:"songs-img/19.jpg",src:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",desc:"Energising drumline for quick motivation."},
+
+];
+
+/* ------------ build cards ------------ */
+const grid=document.getElementById('grid');
+function draw(cat){
+  grid.innerHTML='';
+  songs.filter(s=>cat==='all'||s.cat===cat).forEach(s=>{
+    const c=document.createElement('div');c.className='card';
+    c.innerHTML=`<img src="${s.img}"><h3>${s.title}</h3>`;
+    c.onclick=()=>openModal(s);
+    grid.appendChild(c);
+  });
+}
+draw('all');
+document.getElementById('filter').onchange=e=>draw(e.target.value);
+
+/* ------------ player & UI ------------ */
+const audio=document.getElementById('audio');
+const overlay=document.getElementById('overlay');
+const mImg=document.getElementById('mImg');
+const mTitle=document.getElementById('mTitle');
+const mDesc=document.getElementById('mDesc');
+const mPlay=document.getElementById('mPlay');
+const seek=document.getElementById('seek');
+const mini=document.getElementById('mini');
+const miniImg=document.getElementById('miniImg');
+const miniTitle=document.getElementById('miniTitle');
+const miniPlay=document.getElementById('miniPlay');
+let current={};
+
+function openModal(song){
+  current=song;
+  audio.src=song.src;
+  audio.play();
+  mImg.src=song.img;mTitle.textContent=song.title;mDesc.textContent=song.desc;
+  miniImg.src=song.img;miniTitle.textContent=song.title;mini.classList.add('show');
+  overlay.classList.add('active');
+  updateBtns();
+  showNotification();          // 🔔
+  setMediaSession();           // 🎵
+}
+document.querySelector('.close').onclick=()=>overlay.classList.remove('active');
+overlay.onclick=e=>{if(e.target===overlay)overlay.classList.remove('active')};
+/* mini-bar click → reopen modal */
+mini.onclick=()=>{overlay.classList.add('active');}
+
+/* play / pause */
+function togglePlay(){audio.paused?audio.play():audio.pause();updateBtns()}
+mPlay.onclick=togglePlay;miniPlay.onclick=togglePlay;
+audio.onplay=updateBtns;audio.onpause=updateBtns;audio.onended=updateBtns;
+function updateBtns(){const ico=audio.paused?'►':'❚❚';mPlay.textContent=ico;miniPlay.textContent=ico}
+
+/* progress */
+audio.ontimeupdate=()=>{
+  seek.max=Math.floor(audio.duration)||0;seek.value=Math.floor(audio.currentTime)
+};
+seek.oninput=()=>audio.currentTime=seek.value;
+
+/* ------------ Notifications ------------ */
+async function requestPermission(){
+  try{ if(Notification.permission==='default'){
+      await Notification.requestPermission();
+  }}catch(e){}
+}
+requestPermission();
+
+function showNotification(){
+  if(Notification.permission!=='granted')return;
+  navigator.serviceWorker?.getRegistration().then(reg=>{
+    const options={
+      body:current.desc,
+      icon:current.img,
+      badge:current.img,
+      image:current.img,
+      tag:'aa-sound',
+      renotify:true,
+      actions:[
+        {action:'toggle',title:audio.paused?'Play':'Pause'}
+      ]
+    };
+    (reg?reg.showNotification('♪ '+current.title,options):
+      new Notification('♪ '+current.title,options))
+      .onclick=()=>window.focus();
+  });
+}
+
+/* ------------ Media Session (lock-screen controls) ------------ */
+function setMediaSession(){
+  if(!('mediaSession' in navigator))return;
+  navigator.mediaSession.metadata=new MediaMetadata({
+    title:current.title,artist:'AA Universe',album:'Sleep & Relax',
+    artwork:[{src:current.img,sizes:'512x512',type:'image/jpeg'}]
+  });
+  navigator.mediaSession.setActionHandler('play', ()=>{audio.play();updateBtns();});
+  navigator.mediaSession.setActionHandler('pause',()=>{audio.pause();updateBtns();});
+  navigator.mediaSession.playbackState=audio.paused?'paused':'playing';
+}
+
+/* update mediaSession state change */
+audio.onplay=setMediaSession;
+audio.onpause=setMediaSession;
+</script>
 </body>
 </html>
