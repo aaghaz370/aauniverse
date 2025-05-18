@@ -1,163 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Study Platforms</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Study Platforms</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#ebe3ff;display:flex;flex-direction:column;min-height:100vh}
 
-    body {
-      background: #ebe3ff;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+/* ─── header ─── */
+header{
+  background:#ebe3ff;padding:20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+h1{font-size:2.2rem;color:#121212;letter-spacing:1px}
 
-    header {
-      padding: 20px;
-      text-align: center;
-      background: #ebe3ff;
-    }
+/* new study-material button */
+.sm-btn{
+  padding:8px 14px;border:2px solid #121212;border-radius:8px;
+  background:#121212;color:#ebe3ff;font-size:.95rem;font-weight:600;
+  cursor:pointer;text-decoration:none;white-space:nowrap
+}
+.sm-btn:hover{background:#000}
 
-    h1 {
-      font-size: 2.2rem;
-      color:#121212;
-      letter-spacing: 1px;
-    }
+/* ─── grid ─── */
+.grid-container{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:20px;padding:30px 40px;flex:1
+}
+.box{
+  background:#121212;border:2px solid #121212;border-radius:12px;
+  overflow:hidden;height:410px;cursor:pointer;display:flex;flex-direction:column
+}
+.box img{width:100%;height:420px;object-fit:cover;transition:.3s}
+.box:hover img{filter:brightness(1.15)}
 
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      padding: 30px 40px;
-    }
+/* ─── responsive ─── */
+@media(max-width:1024px){.grid-container{grid-template-columns:repeat(2,1fr);padding:20px}}
+@media(max-width:600px){
+  .grid-container{grid-template-columns:1fr;padding:10px}
+  h1{font-size:1.8rem}
+}
 
-    .box {
-      background-color: #121212;
-      border: 2px solid #121212;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-      box-shadow: 0 0 0 transparent;
-      height: 410px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    /* .box:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px #00a8ff;
-      background-color: #1a1a1a;
-    } */
-
-    /* .box-title {
-      padding: 12px 10px;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #00a8ff;
-    } */
-
-    .box img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      transition: 0.3s ease;
-    }
-
-    .box:hover img {
-      filter: brightness(1.15);
-    }
-
-    @media (max-width: 1024px) {
-      .grid-container {
-        grid-template-columns: repeat(2, 1fr);
-        padding: 20px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .grid-container {
-        grid-template-columns: repeat(1, 1fr);
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #ebe3ff;
-      color:#121212;
-      font-size: 14px;
-      border-top: 1px solid #ebe3ff;
-    }
-  </style>
+/* ─── footer ─── */
+footer{text-align:center;padding:15px;background:#ebe3ff;color:#121212;font-size:14px}
+</style>
 </head>
 <body>
 
-  <header>
-    <h1>Study Platforms</h1>
-  </header>
+<header>
+  <h1>Study Platforms</h1>
+  <a href="studymaterial.html" class="sm-btn">Study Material</a>
+</header>
 
-  <div class="grid-container">
-    <div class="box" onclick="window.location.href='studyapp/pw/pw.html'">
-      <!-- <div class="box-title">PW</div> -->
-      <img src="images1/pw.jpg" alt="PW">
-    </div>
+<div class="grid-container">
+  <div class="box" onclick="window.location.href='studyapp/pw/pw.html'"><img src="images1/pw.jpg" alt="PW"></div>
+  <div class="box" onclick="window.location.href='studyapp/nexttopper/nexttopper.html'"><img src="images1/nexttopper.jpg" alt="NextTopper"></div>
+  <div class="box" onclick="window.location.href='studyapp/kgs/kgs.html'"><img src="images1/kgs.jpg" alt="KGS"></div>
+  <div class="box" onclick="window.location.href='studyapp/vidyakul/vidyakul.html'"><img src="images1/vidyakul.jpg" alt="Vidyakul"></div>
+  <div class="box" onclick="window.location.href='studyapp/unacademy/unacademy.html'"><img src="images1/unacademy.jpg" alt="Unacademy"></div>
+  <div class="box" onclick="window.location.href='studyapp/motionlearning/motionlearning.html'"><img src="images1/motionlearning.jpg" alt="motionlearning"></div>
+  <div class="box" onclick="window.location.href='studyapp/apnikaksha/apnikaksha.html'"><img src="images1/apni kakcha.jpg" alt="apnikaksha"></div>
+  <div class="box" onclick="window.location.href='studyapp/carrerwill/carrerwill.html'"><img src="images1/careerwill.jpg" alt="careerwill"></div>
+</div>
 
-    <div class="box" onclick="window.location.href='studyapp/nexttopper/nexttopper.html'">
-      <!-- <div class="box-title">NextTopper</div> -->
-      <img src="images1/nexttopper.jpg" alt="NextTopper">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/kgs/kgs.html'">
-      <!-- <div class="box-title">KGS</div> -->
-      <img src="images1/kgs.jpg" alt="KGS">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/vidyakul/vidyakul.html'">
-      <!-- <div class="box-title">Vidyakul</div> -->
-      <img src="images1/vidyakul.jpg" alt="Vidyakul">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/unacademy/unacademy.html'">
-      <!-- <div class="box-title">Unacademy</div> -->
-      <img src="images1/unacademy.jpg" alt="Unacademy">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/motionlearning/motionlearning.html'">
-      <!-- <div class="box-title">motionlearning</div> -->
-      <img src="images1/motionlearning.jpg" alt="motionlearning">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/apnikaksha/apnikaksha.html'">
-      <!-- <div class="box-title">apnikaksha</div> -->
-      <img src="images1/apni kakcha.jpg" alt="apnikaksha">
-    </div>
-
-    <div class="box" onclick="window.location.href='studyapp/carrerwill/carrerwill.html'">
-      <!-- <div class="box-title">career</div> -->
-      <img src="images1/careerwill.jpg" alt="carrewill">
-    </div>
-  </div>
-
-  <footer>
-    &copy; 2025 AA Universe — Study with the best.
-  </footer>
+<footer>&copy; 2025 AA Universe — Study with the best.</footer>
 
 </body>
 </html>

@@ -1,144 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Courses • AA Universe</title>
-
-<!---- fonts (optional) –-->
-<link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet"/>
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Study Platforms</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#ebe3ff;padding:10px;min-height:100vh;display:flex;flex-direction:column}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:#ebe3ff;display:flex;flex-direction:column;min-height:100vh}
 
-/* ───── top-bar ───── */
-.top-bar{
-  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-  background:#ebe3ff;padding:10px 15px;border-radius:10px;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);margin-bottom:20px}
-#search,#cat{
-  padding:8px 12px;border:1px solid #0a0a0a;border-radius:8px;
-  font-size:14px;background:#ebe3ff;color:#0a0a0a}
-#backBtn{
-  border:none;background:transparent;color:#0a0a0a;
-  font-size:1.6rem;cursor:pointer;line-height:1}
-#backBtn[hidden]{display:none}
-
-/* ───── grid / cards ───── */
-.course-container{
-  display:grid;
-  gap:20px;
-  /* ⬇︎ यह थी:  repeat(auto-fit, minmax(280px,1fr))  */
-  grid-template-columns:repeat(auto-fill,minmax(280px,280px));
-  justify-content:center;   /* new – अकेले कार्ड को बीच में रखता है */
+/* ─── header ─── */
+header{
+  background:#ebe3ff;padding:20px;
+  display:flex;align-items:center;justify-content:space-between;
 }
+h1{font-size:2.2rem;color:#121212;letter-spacing:1px}
 
-.course-card{
-  background:#fff;border:2px solid #0a0a0a;border-radius:12px;
-  overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.07);
-  transition:transform .2s;cursor:pointer;height:220px;display:flex;flex-direction:column}
-.course-card:hover{transform:translateY(-5px)}
-.course-image{width:100%;height:170px;object-fit:cover}
-.info-bar{
-  flex:1;background:#ebe3ff;color:#0a0a0a;border-top:1px solid #0a0a0a;
-  display:flex;flex-direction:column;justify-content:center;align-items:center;
-  padding:4px 6px;font-weight:600;line-height:1.2;text-align:center;font-size:.8rem}
-.info-bar span{font-size:.7rem;opacity:.7;margin-top:2px}
+/* new study-material button */
+.sm-btn{
+  padding:8px 14px;border:2px solid #121212;border-radius:8px;
+  background:#121212;color:#ebe3ff;font-size:.95rem;font-weight:600;
+  cursor:pointer;text-decoration:none;white-space:nowrap
+}
+.sm-btn:hover{background:#000}
 
-.no-courses{
-  color:#00a8ff;font-size:18px;text-align:center;font-weight:600;
-  grid-column:1/-1;padding:40px 0}
+/* ─── grid ─── */
+.grid-container{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:20px;padding:30px 40px;flex:1
+}
+.box{
+  background:#121212;border:2px solid #121212;border-radius:12px;
+  overflow:hidden;height:410px;cursor:pointer;display:flex;flex-direction:column
+}
+.box img{width:100%;height:420px;object-fit:cover;transition:.3s}
+.box:hover img{filter:brightness(1.15)}
 
-/* ───── footer ───── */
-footer{text-align:center;padding:15px;background:#ebe3ff;color:#1a1a1a;font-size:14px}
-
+/* ─── responsive ─── */
+@media(max-width:1024px){.grid-container{grid-template-columns:repeat(2,1fr);padding:20px}}
 @media(max-width:600px){
-  .top-bar{flex-direction:column;align-items:stretch}
+  .grid-container{grid-template-columns:1fr;padding:10px}
+  h1{font-size:1.8rem}
 }
+
+/* ─── footer ─── */
+footer{text-align:center;padding:15px;background:#ebe3ff;color:#121212;font-size:14px}
 </style>
 </head>
 <body>
 
-<!---- top controls -->
-<div class="top-bar">
-  <button id="backBtn" hidden>&larr;</button>
-  <input type="text" id="search" placeholder="Search Courses..." />
-  <select id="cat">
-    <option value="All">Choose Course & language</option>
-    <option value="coding">coding</option>
-    <option value="editing">editing</option>
-    <option value="exercise">exercise</option>
-  </select>
+<header>
+  <h1>Study Platforms</h1>
+  <a href="studymaterial.html" class="sm-btn">Study Material</a>
+</header>
+
+<div class="grid-container">
+  <div class="box" onclick="window.location.href='studyapp/pw/pw.html'"><img src="images1/pw.jpg" alt="PW"></div>
+  <div class="box" onclick="window.location.href='studyapp/nexttopper/nexttopper.html'"><img src="images1/nexttopper.jpg" alt="NextTopper"></div>
+  <div class="box" onclick="window.location.href='studyapp/kgs/kgs.html'"><img src="images1/kgs.jpg" alt="KGS"></div>
+  <div class="box" onclick="window.location.href='studyapp/vidyakul/vidyakul.html'"><img src="images1/vidyakul.jpg" alt="Vidyakul"></div>
+  <div class="box" onclick="window.location.href='studyapp/unacademy/unacademy.html'"><img src="images1/unacademy.jpg" alt="Unacademy"></div>
+  <div class="box" onclick="window.location.href='studyapp/motionlearning/motionlearning.html'"><img src="images1/motionlearning.jpg" alt="motionlearning"></div>
+  <div class="box" onclick="window.location.href='studyapp/apnikaksha/apnikaksha.html'"><img src="images1/apni kakcha.jpg" alt="apnikaksha"></div>
+  <div class="box" onclick="window.location.href='studyapp/carrerwill/carrerwill.html'"><img src="images1/careerwill.jpg" alt="careerwill"></div>
 </div>
 
-<!---- grid container -->
-<div class="course-container" id="courses"></div>
+<footer>&copy; 2025 AA Universe — Study with the best.</footer>
 
-<footer>&copy; 2025 AA Universe — All rights reserved.</footer>
-
-<script>
-/* ───── course data ───── */
-const courseList=[
- {name:"Delta 6.0 Web Dev",image:"courseimg/delta6.0.jpg",page:"course-lecture/delta6.0.html",category:"coding"},
- {name:"NEET Biology Full",image:"courseimg/zerotoherodavinci.jpg",page:"course-lecture/davinci.html",category:"editing"},
- {name:"Class 9 CBSE Basics",image:"courseimg/bodybuildingbyjeetselal.jpg",page:"course-lecture/jeetselal.html",category:"exercise"},
- {name:"Class 10 Full Course",image:"courseimg/pythonbyapnacollege.jpg",page:"course-lecture/python.html",category:"coding"},
- {name:"NEET Chemistry",image:"courseimg/sigma5.0.jpg",page:"course-lecture/sigma5.0.html",category:"coding"}
-];
-
-/* ───── DOM refs ───── */
-const container=document.getElementById("courses");
-const searchInput=document.getElementById("search");
-const categorySelect=document.getElementById("cat");
-const backBtn=document.getElementById("backBtn");
-
-/* ───── render ───── */
-function renderCourses(list){
-  container.innerHTML="";
-  if(list.length===0){
-    container.innerHTML='<div class="no-courses">No course found</div>';
-    backBtn.hidden=false;
-    return;
-  }
-  list.forEach(c=>{
-    const card=document.createElement("div");
-    card.className="course-card";
-    card.onclick=()=>window.location.href=c.page;
-    card.innerHTML=`
-       <img src="${c.image}" alt="" class="course-image">
-       <div class="info-bar">
-         ${c.name}<span>${c.category}</span>
-       </div>`;
-    container.appendChild(card);
-  });
-}
-
-/* ───── filter logic ───── */
-function filterCourses(){
-  const kw=searchInput.value.toLowerCase();
-  const cat=categorySelect.value;
-  const out=courseList.filter(c=>{
-    const okCat=(cat==="All"||c.category===cat);
-    const okKw=c.name.toLowerCase().includes(kw);
-    return okCat&&okKw;
-  });
-  renderCourses(out);
-  backBtn.hidden=(kw==="" && cat==="All");   // hide arrow if no filter
-}
-
-/* ───── events ───── */
-searchInput.oninput=filterCourses;
-categorySelect.onchange=filterCourses;
-backBtn.onclick=()=>{
-  searchInput.value="";
-  categorySelect.value="All";
-  renderCourses(courseList);
-  backBtn.hidden=true;
-};
-
-/* ───── first draw ───── */
-renderCourses(courseList);
-</script>
 </body>
 </html>
