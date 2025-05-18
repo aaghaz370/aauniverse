@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Number Puzzle Game - 20 Levels</title>
+<style>
+  body {
+    background: #121212;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    user-select: none;
+  }
+  h1 {
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  #game-container {
+    margin-top: 15px;
+    width: 320px;
+  }
+  #puzzle {
+    display: grid;
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: repeat(4, 70px);
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  .tile {
+    background: #1f1f1f;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #61dafb;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.3s;
+    box-shadow: 0 3px 8px rgba(97, 218, 251, 0.6);
+    user-select: none;
+  }
+  .tile.empty {
+    background: transparent;
+    box-shadow: none;
+    cursor: default;
+  }
+  .tile:hover:not(.empty) {
+    background: #39a0ed;
+    color: #fff;
+  }
+  #info {
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    width: 320px;
+  }
+  button {
+    background: #282828;
+    border: none;
+    color: #61dafb;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  button:hover:not(:disabled) {
+    background: #39a0ed;
+    color: #fff;
+  }
+  button:disabled {
+    color: #555;
+    cursor: default;
+  }
+  #level-info {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  #message {
+    margin-top: 10px;
+    min-height: 24px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #4caf50;
+  }
+  @media (max-width: 400px) {
+    #game-container, #info {
+      width: 95vw;
+    }
+    #puzzle {
+      grid-template-columns: repeat(4, 22vw);
+      grid-template-rows: repeat(4, 22vw);
+      gap: 5px;
+    }
+    .tile {
+      font-size: 20px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Number Puzzle Game</h1>
+<div id="level-info">Level: 1 / 20</div>
+<div id="info">
+  <div>Moves: <span id="move-count">0</span></div>
+  <div>Time: <span id="timer">00:00</span></div>
+</div>
+
+<div id="game-container">
+  <div id="puzzle"></div>
+  <button id="shuffle-btn">Shuffle</button>
+  <button id="next-level-btn" disabled>Next Level</button>
+</div>
+
+<div id="message"></div>
+
+<script>
+(() => {
+  const puzzle = document.getElementById('puzzle');
+  const moveCountEl = document.getElementById('move-count');
+  const timerEl = document.getElementById('timer');
+  const levelInfo = document.getElementById('level-info');
+  const shuffleBtn = document.getElementById('shuffle-btn');
+  const nextLevelBtn = document.getElementById('next-level-btn');
+  const messageEl = document.getElementById('message');
+
+  const gridSize = 4;
+  const totalTiles = gridSize * gridSize;
+  let tiles = [];
+  let emptyIndex = totalTiles - 1; // Empty tile at last position
+  let moveCount = 0;
+  let timerInterval = null;
+  let secondsElapsed = 0;
+  let currentLevel = 1;
+  const maxLevel = 20;
+
+  // Initialize the puzzle tiles array
+  function initTiles() {
+    tiles = [];
+    for (let i = 1; i < totalTiles; i++) {
+      tiles.push(i);
+    }
+    tiles.push(null); // null for empty tile
+    emptyIndex = totalTiles - 1;
+  }
+
+  // Render tiles on grid
+  function render() {
+    puzzle.innerHTML = '';
+    tiles.forEach((num, i) => {
+      const tile = document.createElement('div');
+      tile.classList.add('tile');
+      if (num === null) {
+        tile.classList.add('empty');
+      } else {
+        tile.textContent = num;
+        tile.addEventListener('click', () => {
+          moveTile(i);
+        });
+      }
+      puzzle.appendChild(tile);
+    });
+    moveCountEl.textContent = moveCount;
+    levelInfo.textContent = `Level: ${currentLevel} / ${maxLevel}`;
+  }
+
+  // Swap two tiles
+  function swapTiles(i1, i2) {
+    [tiles[i1], tiles[i2]] = [tiles[i2], tiles[i1]];
+    emptyIndex = i2 === emptyIndex ? i1 : i2;
+  }
+
+  // Check if tile at index i is adjacent to empty tile
+  function isAdjacent(i) {
+    const row1 = Math.floor(i / gridSize);
+    const col1 = i % gridSize;
+    const row2 = Math.floor(emptyIndex / gridSize);
+    const col2 = emptyIndex % gridSize;
+
+    return (row1 === row2 && Math.abs(col1 - col2) === 1) ||
+           (col1 === col2 && Math.abs(row1 - row2) === 1);
+  }
+
+  // Move tile if adjacent to empty
+  function moveTile(i) {
+    if (messageEl.textContent) messageEl.textContent = '';
+    if (isAdjacent(i)) {
+      swapTiles(i, emptyIndex);
+      moveCount++;
+      moveCountEl.textContent = moveCount;
+      render();
+      if (checkSolved()) {
+        onPuzzleSolved();
+      }
+    }
+  }
+
+  // Check if puzzle solved (tiles in ascending order)
+  function checkSolved() {
+    for (let i = 0; i < totalTiles - 1; i++) {
+      if (tiles[i] !== i + 1) return false;
+    }
+    return true;
+  }
+
+  // Shuffle puzzle with solvable shuffle
+  function shuffle(level) {
+    // Reset move count and timer
+    moveCount = 0;
+    moveCountEl.textContent = moveCount;
+    secondsElapsed = 0;
+    updateTimer();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+      secondsElapsed++;
+      updateTimer();
+    }, 1000);
+    messageEl.textContent = '';
+
+    // Number of shuffle moves depends on level (more moves for higher level)
+    const shuffleMoves = 30 + level * 10;
+
+    // Make sure tiles are solved at start
+    initTiles();
+
+    // Perform shuffle moves by moving a random adjacent tile repeatedly
+    let lastMove = null;
+    for (let i = 0; i < shuffleMoves; i++) {
+      const neighbors = getAdjacentIndices(emptyIndex);
+      // Prevent moving back the tile just moved
+      if (lastMove !== null) {
+        const idx = neighbors.indexOf(lastMove);
+        if (idx > -1) neighbors.splice(idx, 1);
+      }
+      const nextMove = neighbors[Math.floor(Math.random() * neighbors.length)];
+      swapTiles(nextMove, emptyIndex);
+      lastMove = emptyIndex;
+    }
+
+    render();
+  }
+
+  // Get indices adjacent to given index
+  function getAdjacentIndices(i) {
+    const row = Math.floor(i / gridSize);
+    const col = i % gridSize;
+    const neighbors = [];
+
+    if (row > 0) neighbors.push(i - gridSize); // Up
+    if (row < gridSize - 1) neighbors.push(i + gridSize); // Down
+    if (col > 0) neighbors.push(i - 1); // Left
+    if (col < gridSize - 1) neighbors.push(i + 1); // Right
+
+    return neighbors;
+  }
+
+  // Update timer display (mm:ss)
+  function updateTimer() {
+    const minutes = Math.floor(secondsElapsed / 60);
+    const seconds = secondsElapsed % 60;
+    timerEl.textContent =
+      `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  // Called when puzzle is solved
+  function onPuzzleSolved() {
+    clearInterval(timerInterval);
+    messageEl.textContent = `🎉 Congratulations! Level ${currentLevel} completed!`;
+    nextLevelBtn.disabled = currentLevel === maxLevel;
+    shuffleBtn.disabled = true;
+  }
+
+  // Next level button handler
+  nextLevelBtn.addEventListener('click', () => {
+    if (currentLevel < maxLevel) {
+      currentLevel++;
+      startLevel(currentLevel);
+      nextLevelBtn.disabled = true;
+      shuffleBtn.disabled = false;
+      messageEl.textContent = '';
+    }
+  });
+
+  // Shuffle button handler
+  shuffleBtn.addEventListener('click', () => {
+    shuffle(currentLevel);
+    nextLevelBtn.disabled = true;
+  });
+
+  // Start a level
+  function startLevel(level) {
+    initTiles();
+    shuffle(level);
+  }
+
+  // Initialize game
+  function init() {
+    startLevel(currentLevel);
+  }
+
+  init();
+
+})();
+</script>
+
+</body>
+</html>

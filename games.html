@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MOVIES</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #ebe3ff;
+      color: #fff;
+      padding: 10px;
+    }
+
+  
+    /* Movie Grid */
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 40px;
+    }
+
+    .movie-card {
+      background-color:#fff;
+      border: 2px solid #121212;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 20px #fff;
+      background-color: #fff;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 7cm;
+      object-fit: cover;
+    }
+
+    .movie-info {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .movie-name {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color: #121212;
+    }
+
+    .movie-buttons a {
+      background-color: #121212;
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      margin: 3px;
+      display: inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .featured-overlay {
+        bottom: 8px;
+        left: 10px;
+      }
+
+      .featured-buttons a {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
+      .movie-card img {
+        height: 6cm;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .featured-movie {
+        height: 9cm;
+      }
+
+      .movie-card img {
+        height: 5.5cm;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ebe3ff;
+      color:  #0a0a0a;
+      font-size: 14px;
+      border-top: 1px solid  #ebe3ff;
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+  
+  <!-- Movie Grid -->
+  <div class="movie-grid">
+    <!-- Repeat this block for 50+ movies -->
+    <div class="movie-card">
+      <img src="https://img.freepik.com/free-psd/3d-rendering-tic-tac-toe-board_23-2151686074.jpg?semt=ais_hybrid&w=740" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name">Tic Tac Toe</div>
+        <div class="movie-buttons">
+          <a href="games/tic-tac-toe.html" target="_blank">Play</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="movie-card">
+      <img src="images1/Screenshot (80).png" alt="memorymatrix" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Memory Matrix</h3></div>
+        <div class="movie-buttons">
+          <a href="games/memorymatrix.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+
+    <!-- Example Movie Box 2 -->
+   <div class="movie-card">
+      <img src="https://png.pngtree.com/png-vector/20250326/ourlarge/pngtree-d-illustration-of-a-tic-tac-toe-icon-with-fun-and-png-image_15875710.png" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Tic Tac Toe</h3></div>
+        <div class="movie-buttons">
+          <a href="games/tictactoe.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+
+
+    <div class="movie-card">
+      <img src="https://play-lh.googleusercontent.com/3WmU2VWi9SJDJA_OACS0tQ0TejcmVr91ICmyvyW1hS5SLbQCk9G1_ogYRxLWVbUylQ " alt="numberpuzzle" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Number Puzzle</h3></div>
+        <div class="movie-buttons">
+          <a href="games/numberpuzzle.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+
+      <div class="movie-card">
+      <img src="https://png.pngtree.com/png-vector/20250326/ourlarge/pngtree-d-illustration-of-a-tic-tac-toe-icon-with-fun-and-png-image_15875710.png" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Memory Matrix</h3></div>
+        <div class="movie-buttons">
+          <a href="games/memorymatrix.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+
+
+      <div class="movie-card">
+      <img src="https://png.pngtree.com/png-vector/20250326/ourlarge/pngtree-d-illustration-of-a-tic-tac-toe-icon-with-fun-and-png-image_15875710.png" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Memory Matrix</h3></div>
+        <div class="movie-buttons">
+          <a href="games/memorymatrix.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+
+
+      <div class="movie-card">
+      <img src="https://png.pngtree.com/png-vector/20250326/ourlarge/pngtree-d-illustration-of-a-tic-tac-toe-icon-with-fun-and-png-image_15875710.png" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Memory Matrix</h3></div>
+        <div class="movie-buttons">
+          <a href="games/memorymatrix.html" target="_blank">Play</a>
+        
+        </div>
+      </div>
+    </div>
+       </div>
+
+       <footer>
+    &copy; 2025 AA Universe — All rights reserved.
+  </footer>
+
+</body>
+</html>

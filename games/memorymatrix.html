@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Matrix</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: radial-gradient(circle, #000000, #0f0f2d);
+      color: white;
+      position: relative;
+      overflow-x: hidden;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 15px;
+    }
+    .tile {
+      width: 80px;
+      height: 80px;
+      background: #1a1a40;
+      border: 2px solid #4a4aff;
+      border-radius: 12px;
+      transition: 0.2s;
+      touch-action: manipulation;
+    }
+    .tile.active {
+      background: #4a4aff;
+      box-shadow: 0 0 20px 5px #4a4aff;
+    }
+    .tile.correct {
+      background: #00ff00;
+      box-shadow: 0 0 20px 5px #00ff00;
+    }
+    .tile.wrong {
+      background: #ff0000;
+      box-shadow: 0 0 20px 5px #ff0000;
+    }
+    #score {
+      margin-top: 20px;
+      font-size: 20px;
+      user-select: none;
+    }
+    button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: #4a4aff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+      user-select: none;
+    }
+    button:hover {
+      background: #3a3acf;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 500px) {
+      #grid {
+        grid-template-columns: repeat(4, 60px);
+        gap: 10px;
+      }
+      .tile {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+      #score {
+        font-size: 16px;
+      }
+    }
+
+    /* Menu styles */
+    #menuToggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      width: 30px;
+      height: 25px;
+      cursor: pointer;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+    #menuToggle div {
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    #soundIcon {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      font-size: 28px;
+      color: #4a4aff;
+      cursor: pointer;
+      user-select: none;
+      display: none;
+      z-index: 1001;
+      line-height: 25px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 3-dot menu -->
+  <div id="menuToggle" title="Toggle Sound">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Sound icon -->
+  <div id="soundIcon" title="Toggle Sound">&#128266;</div>
+
+  <h1>🧠 Memory Matrix</h1>
+  <div id="grid"></div>
+  <div id="score">Level: 1 | Score: 0</div>
+  <button onclick="startGame()">Start / Restart</button>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const scoreDisplay = document.getElementById('score');
+    let sequence = [], userSequence = [], level = 1, score = 0;
+
+    // Sound control
+    let soundOn = true;
+
+    // Audio files (simple beep sounds using Web Audio API below)
+    function playSound(freq, duration=150) {
+      if (!soundOn) return;
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      oscillator.type = 'square';
+      oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+      oscillator.start();
+      oscillator.stop(audioCtx.currentTime + duration/1000);
+    }
+
+    const createTiles = () => {
+      grid.innerHTML = '';
+      for (let i = 0; i < 16; i++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        tile.dataset.index = i;
+        tile.addEventListener('click', handleTileClick);
+        grid.appendChild(tile);
+      }
+    };
+
+    const flashTile = (index, delay = 600) => {
+      const tile = grid.children[index];
+      setTimeout(() => {
+        tile.classList.add('active');
+        playSound(440); // beep on flash
+      }, delay);
+      setTimeout(() => tile.classList.remove('active'), delay + 500);
+    };
+
+    const showSequence = () => {
+      let delay = 0;
+      sequence.forEach((idx, i) => {
+        flashTile(idx, delay);
+        delay += 800;
+      });
+    };
+
+    const generateSequence = () => {
+      sequence = [];
+      for (let i = 0; i < level + 2; i++) {
+        sequence.push(Math.floor(Math.random() * 16));
+      }
+      userSequence = [];
+      showSequence();
+    };
+
+    const handleTileClick = (e) => {
+      if (userSequence.length === sequence.length) return; // prevent extra clicks after completion
+
+      const index = parseInt(e.target.dataset.index);
+      userSequence.push(index);
+      const tile = grid.children[index];
+
+      if (sequence[userSequence.length - 1] === index) {
+        tile.classList.add('correct');
+        playSound(660, 200); // correct sound
+        setTimeout(() => tile.classList.remove('correct'), 300);
+        if (userSequence.length === sequence.length) {
+          score += level * 10;
+          level++;
+          scoreDisplay.innerText = `Level: ${level} | Score: ${score}`;
+          setTimeout(generateSequence, 1000);
+        }
+      } else {
+        tile.classList.add('wrong');
+        playSound(220, 400); // wrong sound
+        scoreDisplay.innerText = `❌ Wrong! Final Score: ${score}`;
+        setTimeout(() => tile.classList.remove('wrong'), 500);
+      }
+    };
+
+    const startGame = () => {
+      level = 1;
+      score = 0;
+      scoreDisplay.innerText = `Level: ${level} | Score: ${score}`;
+      createTiles();
+      generateSequence();
+    };
+
+    createTiles();
+
+    // Menu toggle logic
+    const menuToggle = document.getElementById('menuToggle');
+    const soundIcon = document.getElementById('soundIcon');
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation(); // prevent document click hiding immediately
+      if (menuToggle.style.display !== 'none') {
+        menuToggle.style.display = 'none';
+        soundIcon.style.display = 'block';
+      }
+    });
+
+    soundIcon.addEventListener('click', e => {
+      e.stopPropagation();
+      soundOn = !soundOn;
+      soundIcon.style.color = soundOn ? '#4a4aff' : '#777';
+      soundIcon.innerHTML = soundOn ? '&#128266;' : '&#128263;'; // speaker on/off icon
+    });
+
+    // Clicking anywhere else hides sound icon and shows menu toggle dots
+    document.body.addEventListener('click', () => {
+      if (soundIcon.style.display === 'block') {
+        soundIcon.style.display = 'none';
+        menuToggle.style.display = 'flex';
+      }
+    });
+  </script>
+</body>
+</html>

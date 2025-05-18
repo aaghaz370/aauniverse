@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Us</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #ebe3ff;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 2rem;
+      color:   #0a0a0a;
+    }
+
+    .app-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #fff;
+      border: 2px solid#121212;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px 0;
+      height: 8cm;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 transparent;
+    }
+
+    .app-box:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 20px  #fff;
+      background-color: #fff;
+    }
+
+    .app-image {
+  width: 8cm;
+  max-width: 10cm;
+  height: 7cm;
+  aspect-ratio: 5 / 4;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+
+    .app-content {
+      flex: 1;
+      padding-right: 20px;
+    }
+
+    .app-name {
+      font-size: 1.5rem;
+      color: #0a0a0a;
+      margin-bottom: 10px;
+    }
+
+    .app-description {
+      font-size: 1rem;
+      color:   #0a0a0a;
+    }
+
+    .download-btn {
+      padding: 10px 20px;
+      background-color: #0a0a0a;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #0a0a0a;
+      box-shadow: 0 0 10px  #0a0a0a;
+    }
+
+    @media (max-width: 768px) {
+      .app-box {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+      }
+
+      .app-image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+      }
+
+      .app-content {
+        padding-right: 0;
+      }
+
+      .download-btn {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+      }
+    }
+
+   footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ebe3ff;
+      color:  #0a0a0a;
+      font-size: 14px;
+      border-top: 1px solid  #ebe3ff;
+    }
+ </style>
+</head>
+<body>
+
+   
+      
+  
+    <h1>Join Us</h1>
+    
+    
+    <div class="app-box">
+  <img src="data:image/jpeg;base64,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" alt="youtube" class="app-image"/>
+  <div class="app-content">
+    <div class="app-name"><h2>Whatshapp Group</h2></div>
+    <div class="app-description">
+      <h3>Join On Whatshapp !  </h3>
+      <h3>Please give your feedback so we can make it better</h3>
+    </div>
+  </div>
+  <a href=" https://whatsapp.com/channel/0029Vb5hdy6J93wXMcbcl80b " class="download-btn" download>Join</a>
+</div>
+
+    
+    <div class="app-box">
+      <img src="https://img.freepik.com/premium-psd/telegram-logo-social-media-3d_304434-561.jpg" alt="telegram" class="app-image"/>
+      <div class="app-content">
+        <div class="app-name"><h2>Telegram Group</h2></div>
+        <div class="app-description">
+        
+         <h3>Join On Telegram !</h3>
+         <h3>Please give your feedback so we can make it better</h3>
+        </div>
+      </div>
+      <a href="https://t.me/+fEQDmg8yPj81YTNl" class="download-btn" download>Join</a>
+      </div>
+    
+    
+    
+    
+  </div>
+
+  
+ 
+</div>
+  <footer>
+    &copy; 2025 AA Universe — All rights reserved.
+  </footer>
+
+</body>
+</html>
+

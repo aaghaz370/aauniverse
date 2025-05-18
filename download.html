@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Download Movie</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .movie-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #00a8ff;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+
+    p {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .btn {
+      padding: 10px;
+      background-color: #00a8ff;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #007acc;
+    }
+  </style>
+</head>
+<body>
+    
+
+  <img id="movieImg" class="movie-img" src="" alt="Movie Thumbnail" />
+  <h1 id="movieTitle"></h1>
+  <p id="movieDesc"></p>
+
+  
+  <div id="screenshots" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;"></div>
+
+  <div class="buttons">
+    <a id="btn480" class="btn" target="_blank">Download 480p</a>
+    <a id="btn720" class="btn" target="_blank">Download 720p</a>
+    <a id="btn1080" class="btn" target="_blank">Download 1080p</a>
+    <a id="btn4k" class="btn" target="_blank">Download 4K</a>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const title = urlParams.get("title") || "Movie";
+    const img = urlParams.get("img");
+    const desc = urlParams.get("desc") || "No description provided.";
+    const v480 = urlParams.get("v480");
+    const v720 = urlParams.get("v720");
+    const v1080 = urlParams.get("v1080");
+    const v4k = urlParams.get("v4k");
+
+    document.getElementById("movieTitle").textContent = title;
+    document.getElementById("movieDesc").textContent = desc;
+    document.getElementById("movieImg").src = img;
+
+    document.getElementById("btn480").href = v480;
+    document.getElementById("btn720").href = v720;
+    document.getElementById("btn1080").href = v1080;
+    document.getElementById("btn4k").href = v4k;
+
+    // Screenshots (static example for now, can be made dynamic later)
+const screenshots = [
+  "https://catimages.org/images/2025/05/07/vlcsnap-2025-05-06-09h34m44s147.jpg",
+  "https://catimages.org/images/2025/05/07/vlcsnap-2025-05-06-09h35m26s901.jpg",
+  "https://catimages.org/images/2025/05/07/vlcsnap-2025-05-06-09h35m59s067.jpg"
+];
+
+const screenshotsContainer = document.getElementById("screenshots");
+
+screenshots.forEach(url => {
+  const img = document.createElement("img");
+  img.src = url;
+  img.style.width = "30%";
+  img.style.borderRadius = "10px";
+  screenshotsContainer.appendChild(img);
+});
+
+  </script>
+</body>
+</html>

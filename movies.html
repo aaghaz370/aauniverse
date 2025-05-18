@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MOVIES</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      padding: 10px;
+    }
+
+    /* Featured Movie Section */
+    .featured-movie {
+      position: relative;
+      width: 100%;
+      height: 15cm;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+
+    .featured-overlay {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      z-index: 2;
+    }
+
+    .featured-buttons a {
+      background-color: #00a8ff;
+      color: #000;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      margin-right: 10px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .featured-movie::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    }
+
+    /* Movie Grid */
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+
+    .movie-card {
+      background-color: #121212;
+      border: 2px solid #00a8ff;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.01);
+      box-shadow: 0 0 20px #00a8ff;
+      background-color: #1a1a1a;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 7cm;
+      object-fit: cover;
+    }
+
+    .movie-info {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .movie-name {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      color:  #00a8ff;
+    }
+
+    .movie-buttons a {
+      background-color: #00a8ff;
+      color: #000;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      margin: 3px;
+      display: inline-block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .featured-overlay {
+        bottom: 8px;
+        left: 10px;
+      }
+
+      .featured-buttons a {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
+      .movie-card img {
+        height: 6cm;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .featured-movie {
+        height: 9cm;
+      }
+
+      .movie-card img {
+        height: 5.5cm;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #ebe3ff;
+      color:  #0a0a0a;
+      font-size: 14px;
+      border-top: 1px solid  #ebe3ff;
+    }
+  </style>
+</head>
+<body>
+
+
+  <!-- Top Featured Movie -->
+  <div class="featured-movie" style="background-image: url('images1/hit34k.jpg');" onclick="window.location.href='play-movie.html'">
+    <div class="featured-overlay">
+      <div class="featured-buttons">
+        <a href="https://streamable.com/0izdne?src=player-page-share" target="_blank">▶ Play</a>
+        <a href="download.html?title=Kesari%20Chapter%202&img=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FjgGSqe1YgSot6Y1zDVTVkbsZ46z.jpg&desc=Kesari%20Chapter%202%20is%20an%20Indian%20Bollywood%20movie&v480=https%3A%2F%2Fhubcloud.bz%2Fdrive%2Fkgcjgqabryqncla">
+          Download
+        </a>
+        
+
+      </div>
+    </div>
+  </div>
+
+  
+  <!-- Movie Grid -->
+  <div class="movie-grid">
+    <!-- Repeat this block for 50+ movies -->
+    <div class="movie-card">
+      <img src="https://image.tmdb.org/t/p/w342/jgGSqe1YgSot6Y1zDVTVkbsZ46z.jpg" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name">Another Movie</div>
+        <div class="movie-buttons">
+          <a href="play.html?link=https://streampx.xyz/v/qmukCPb6Qr5k/" target="_blank">Play</a>
+          <a href="download.html?title=HIT%203&img=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Fw500%2FwT9tGyFol4RBwkjESXUWeBdnLJn.jpg&desc=south%20movie&ss1=https%3A%2F%2Fcatimages.org%2Fimages%2F2025%2F05%2F01%2Fvlcsnap-2025-05-01-03h26m18s999.jpg&ss2=https%3A%2F%2Fcatimages.org%2Fimages%2F2025%2F05%2F01%2Fvlcsnap-2025-05-01-03h27m52s673.jpg&ss3=https%3A%2F%2Fcatimages.org%2Fimages%2F2025%2F05%2F01%2Fvlcsnap-2025-05-01-03h29m34s973.jpg&v480=https%3A%2F%2Fhdhub4u.graphics%2Fhit-the-third-case-2025-hind-pre-hd-full-movie%2F&v720=https%3A%2F%2Fhdhub4u.graphics%2Fhit-the-third-case-2025-hind-pre-hd-full-movie%2F&v1080=https%3A%2F%2Fhdhub4u.graphics%2Fhit-the-third-case-2025-hind-pre-hd-full-movie%2F&v4k=https%3A%2F%2Fhdhub4u.graphics%2Fhit-the-third-case-2025-hind-pre-hd-full-movie%2F">Download HIT 3</a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="movie-card">
+      <img src="images1/d6c2601e03ac45b121ab7d06f2f7012a17403985749601177_0.avif" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>HIT 3</h3></div>
+        <div class="movie-buttons">
+          <a href="play.html" target="_blank">Play</a>
+          <a href="download-page.html">⬇ Download</a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Example Movie Box 2 -->
+    <div class="movie-card">
+      <img src="images1/sikandar.jpg" alt="Movie Thumbnail" />
+      <div class="movie-info">
+        <div class="movie-name"><h3>Sikandar</h3></div>
+        <div class="movie-buttons">
+          <a href="play2.html" target="_blank">Play</a>
+          <a href="download-page.html">⬇ Download</a>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w342/wMUNrwZmGKgFrclABHrRZD1jF49.jpg" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="https://via.placeholder.com/300x400" alt="Movie Thumbnail" />
+        <div class="movie-info">
+          <div class="movie-name">Another Movie</div>
+          <div class="movie-buttons">
+            <a href="play2.html" target="_blank">Play</a>
+            <a href="download2.mp4" download>Download</a>
+          </div>
+        </div>
+      </div>
+
+    <!-- Copy & Edit for more -->
+  </div>
+  <footer>
+    &copy; 2025 AA Universe — All rights reserved.
+  </footer>
+</body>
+</html>
